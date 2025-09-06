@@ -105,6 +105,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  
+  /*
+   * HardFault(UNALIGNED)対策の最終手段:
+   * Cortex-M7コア自体に、アライメントされていないメモリアクセスを
+   * トラップ(フォルト)させず、ハードウェアで処理させるように設定する。
+   */
+  SCB->CCR &= ~(SCB_CCR_UNALIGN_TRP_Msk);
 
   /* USER CODE END 2 */
 

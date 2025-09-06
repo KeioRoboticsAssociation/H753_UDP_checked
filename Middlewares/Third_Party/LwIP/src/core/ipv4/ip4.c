@@ -512,28 +512,8 @@ ip4_input(struct pbuf *p, struct netif *inp)
 #endif
 
   /* copy IP addresses to aligned ip_addr_t */
-  // --- ここから変更 ---
-  // HardFaultを完全に回避するため、コンパイラに最適化させない1バイトずつのコピーを行う
-  // これは「真の値渡し」に相当する
-  u8_t *src_ptr;
-  u8_t *dest_ptr;
-
-  // 宛先アドレスのコピー
-  src_ptr = (u8_t*)&(iphdr->dest);
-  dest_ptr = (u8_t*)&(ip_data.current_iphdr_dest);
-  dest_ptr[0] = src_ptr[0];
-  dest_ptr[1] = src_ptr[1];
-  dest_ptr[2] = src_ptr[2];
-  dest_ptr[3] = src_ptr[3];
-
-  // 送信元アドレスのコピー
-  src_ptr = (u8_t*)&(iphdr->src);
-  dest_ptr = (u8_t*)&(ip_data.current_iphdr_src);
-  dest_ptr[0] = src_ptr[0];
-  dest_ptr[1] = src_ptr[1];
-  dest_ptr[2] = src_ptr[2];
-  dest_ptr[3] = src_ptr[3];
-  // --- ここまで変更 ---
+  ip_addr_copy_from_ip4(ip_data.current_iphdr_dest, iphdr->dest);
+  ip_addr_copy_from_ip4(ip_data.current_iphdr_src, iphdr->src);
 
   /* match packet against an interface, i.e. is this packet for us? */
   if (ip4_addr_ismulticast(ip4_current_dest_addr())) {

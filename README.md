@@ -1,6 +1,12 @@
 # H753_UDP_checked
 # 注意!  
-## コードを生成するたびにip4.cの515行目と516行目を以下のコードと置き換えてください。hardFaultになります
+## ~~コードを生成するたびにip4.cの515行目と516行目を以下のコードと置き換えてください。hardFaultになります~~
+# 修正しました！もう置き換える必要はありません！
+ip_addr_copy_from_ip4(ip_data.current_iphdr_dest, iphdr->dest);  
+ip_addr_copy_from_ip4(ip_data.current_iphdr_src, iphdr->src);  
+上記を削除
+
+
 // --- ここから変更 ---  
   // HardFaultを完全に回避するため、コンパイラに最適化させない1バイトずつのコピーを行う  
   u8_t *src_ptr;  

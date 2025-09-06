@@ -131,17 +131,9 @@ __attribute__((section(".Rx_PoolSection"))) extern u8_t memp_memory_RX_POOL_base
 #endif
 
 /* USER CODE BEGIN 2 */
-#if defined ( __ICCARM__ ) /*!< IAR Compiler */
-#pragma location = 0x30040200
-extern u8_t memp_memory_RX_POOL_base[];
 
-#elif defined ( __CC_ARM )  /* MDK ARM Compiler */
-__attribute__((at(0x30040200)) extern u8_t memp_memory_RX_POOL_base[];
-
-#elif defined ( __GNUC__ ) /* GNU Compiler */
-__attribute__((section(".Rx_PoolSection"))) extern u8_t memp_memory_RX_POOL_base[];
-
-#endif
+__attribute__((
+    section(".Rx_PoolSection"))) extern u8_t memp_memory_RX_POOL_base[];
 
 /* USER CODE END 2 */
 
